@@ -1,0 +1,194 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://scripts/personagem.gd" type="Script" id=1]
+[ext_resource path="res://assets/Personagem/p1_walk01.png" type="Texture" id=2]
+[ext_resource path="res://assets/Personagem/p1_walk02.png" type="Texture" id=3]
+[ext_resource path="res://assets/Personagem/p1_walk03.png" type="Texture" id=4]
+[ext_resource path="res://assets/Personagem/p1_walk04.png" type="Texture" id=5]
+[ext_resource path="res://assets/Personagem/p1_walk05.png" type="Texture" id=6]
+[ext_resource path="res://assets/Personagem/p1_walk06.png" type="Texture" id=7]
+[ext_resource path="res://assets/Personagem/p1_walk07.png" type="Texture" id=8]
+[ext_resource path="res://tilesets/tileset.tres" type="TileSet" id=9]
+[ext_resource path="res://assets/Tiles/cloud1.png" type="Texture" id=10]
+[ext_resource path="res://assets/Tiles/cloud2.png" type="Texture" id=11]
+[ext_resource path="res://assets/Tiles/cloud3.png" type="Texture" id=12]
+[ext_resource path="res://scenes/Moeda.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scripts/lesma.gd" type="Script" id=14]
+[ext_resource path="res://assets/Inimigo/slimeWalk2.png" type="Texture" id=15]
+[ext_resource path="res://assets/Inimigo/slimeWalk1.png" type="Texture" id=16]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 28.9189, 57.5865 )
+
+[sub_resource type="Curve2D" id=3]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 332.083, 465.329, 0, 0, 0, 0, 831.051, 465.329 )
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "rasteijar"
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.00233739, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ ExtResource( 16 ), ExtResource( 15 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 37.6371, 20.4799 )
+
+[node name="Game" type="Node2D"]
+
+[node name="personagem" type="KinematicBody2D" parent="."]
+editor/display_folded = true
+position = Vector2( 205.421, 360.255 )
+script = ExtResource( 1 )
+
+[node name="sprite" type="AnimatedSprite" parent="personagem"]
+scale = Vector2( 1.3, 1.3 )
+frames = SubResource( 1 )
+frame = 2
+playing = true
+
+[node name="shape" type="CollisionShape2D" parent="personagem"]
+position = Vector2( 1.36224, 0.681122 )
+shape = SubResource( 2 )
+
+[node name="rayD" type="RayCast2D" parent="personagem"]
+position = Vector2( -26.0322, 57.6341 )
+enabled = true
+cast_to = Vector2( 0, 5 )
+
+[node name="rayE" type="RayCast2D" parent="personagem"]
+position = Vector2( 28.8651, 57.3836 )
+enabled = true
+cast_to = Vector2( 0, 5 )
+
+[node name="camera" type="Camera2D" parent="personagem"]
+current = true
+limit_left = 0
+smoothing_enabled = true
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 9 )
+cell_size = Vector2( 70, 70 )
+format = 1
+tile_data = PoolIntArray( 65535, 3, 0, 131071, 3, 0, 65585, 1, 0, 65586, 0, 0, 65587, 2, 0, 196607, 3, 0, 262143, 3, 0, 196669, 1, 0, 196670, 0, 0, 196671, 2, 0, 327679, 3, 0, 262159, 1, 0, 262160, 0, 0, 262161, 0, 0, 262162, 2, 0, 262190, 1, 0, 262191, 0, 0, 262205, 3, 0, 262206, 3, 0, 262207, 3, 0, 393215, 3, 0, 327723, 1, 0, 327724, 0, 0, 327725, 0, 0, 327726, 3, 0, 327727, 3, 0, 327733, 1, 0, 327734, 0, 0, 327735, 2, 0, 327741, 3, 0, 327742, 3, 0, 327743, 3, 0, 458751, 3, 0, 393259, 3, 0, 393260, 3, 0, 393261, 3, 0, 393262, 3, 0, 393263, 3, 0, 393277, 3, 0, 393278, 3, 0, 393279, 3, 0, 524287, 3, 0, 458752, 0, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 458760, 0, 0, 458761, 0, 0, 458762, 0, 0, 458763, 0, 0, 458764, 0, 0, 458765, 0, 0, 458766, 0, 0, 458767, 4, 0, 458768, 4, 0, 458769, 4, 0, 458770, 4, 0, 458771, 0, 0, 458772, 0, 0, 458773, 0, 0, 458774, 0, 0, 458775, 0, 0, 458776, 0, 0, 458777, 0, 0, 458778, 0, 0, 458779, 0, 0, 458780, 0, 0, 458781, 0, 0, 458782, 0, 0, 458783, 0, 0, 458784, 0, 0, 458785, 0, 0, 458786, 0, 0, 458787, 0, 0, 458788, 0, 0, 458789, 0, 0, 458790, 0, 0, 458791, 4, 0, 458792, 4, 0, 458793, 4, 0, 458794, 4, 0, 458795, 3, 0, 458796, 3, 0, 458797, 3, 0, 458798, 3, 0, 458799, 3, 0, 458813, 3, 0, 458814, 3, 0, 458815, 3, 0, 589823, 3, 0, 524288, 3, 0, 524289, 3, 0, 524290, 3, 0, 524291, 3, 0, 524292, 3, 0, 524293, 3, 0, 524294, 3, 0, 524295, 3, 0, 524296, 3, 0, 524297, 3, 0, 524298, 3, 0, 524299, 3, 0, 524300, 3, 0, 524301, 3, 0, 524302, 3, 0, 524303, 5, 0, 524304, 5, 0, 524305, 5, 0, 524306, 5, 0, 524307, 3, 0, 524308, 3, 0, 524309, 3, 0, 524310, 3, 0, 524311, 3, 0, 524312, 3, 0, 524313, 3, 0, 524314, 3, 0, 524315, 3, 0, 524316, 3, 0, 524317, 3, 0, 524318, 3, 0, 524319, 3, 0, 524320, 3, 0, 524321, 3, 0, 524322, 3, 0, 524323, 3, 0, 524324, 3, 0, 524325, 3, 0, 524326, 3, 0, 524327, 5, 0, 524328, 5, 0, 524329, 5, 0, 524330, 5, 0, 524331, 3, 0, 524332, 3, 0, 524333, 3, 0, 524334, 3, 0, 524335, 3, 0, 524336, 3, 0, 524337, 3, 0, 524338, 3, 0, 524339, 3, 0, 524340, 3, 0, 524341, 4, 0, 524342, 4, 0, 524343, 4, 0, 524344, 3, 0, 524345, 3, 0, 524346, 3, 0, 524347, 3, 0, 524348, 3, 0, 524349, 3, 0, 524350, 3, 0, 524351, 3, 0, 655359, 3, 0, 589824, 3, 0, 589825, 3, 0, 589826, 3, 0, 589827, 3, 0, 589828, 3, 0, 589829, 3, 0, 589830, 3, 0, 589831, 3, 0, 589832, 3, 0, 589833, 3, 0, 589834, 3, 0, 589835, 3, 0, 589836, 3, 0, 589837, 3, 0, 589838, 3, 0, 589839, 5, 0, 589840, 5, 0, 589841, 5, 0, 589842, 5, 0, 589843, 3, 0, 589844, 3, 0, 589845, 3, 0, 589846, 3, 0, 589847, 3, 0, 589848, 3, 0, 589849, 3, 0, 589850, 3, 0, 589851, 3, 0, 589852, 3, 0, 589853, 3, 0, 589854, 3, 0, 589855, 3, 0, 589856, 3, 0, 589857, 3, 0, 589858, 3, 0, 589859, 3, 0, 589860, 3, 0, 589861, 3, 0, 589862, 3, 0, 589863, 5, 0, 589864, 5, 0, 589865, 5, 0, 589866, 5, 0, 589867, 3, 0, 589868, 3, 0, 589869, 3, 0, 589870, 3, 0, 589871, 3, 0, 589872, 3, 0, 589873, 3, 0, 589874, 3, 0, 589875, 3, 0, 589876, 3, 0, 589877, 5, 0, 589878, 5, 0, 589879, 5, 0, 589880, 3, 0, 589881, 3, 0, 589882, 3, 0, 589883, 3, 0, 589884, 3, 0, 589885, 3, 0, 589886, 3, 0, 589887, 3, 0, 720895, 3, 0, 655360, 3, 0, 655361, 3, 0, 655362, 3, 0, 655363, 3, 0, 655364, 3, 0, 655365, 3, 0, 655366, 3, 0, 655367, 3, 0, 655368, 3, 0, 655369, 3, 0, 655370, 3, 0, 655371, 3, 0, 655372, 3, 0, 655373, 3, 0, 655374, 3, 0, 655375, 5, 0, 655376, 5, 0, 655377, 5, 0, 655378, 5, 0, 655379, 3, 0, 655380, 3, 0, 655381, 3, 0, 655382, 3, 0, 655383, 3, 0, 655384, 3, 0, 655385, 3, 0, 655386, 3, 0, 655387, 3, 0, 655388, 3, 0, 655389, 3, 0, 655390, 3, 0, 655391, 3, 0, 655392, 3, 0, 655393, 3, 0, 655394, 3, 0, 655395, 3, 0, 655396, 3, 0, 655397, 3, 0, 655398, 3, 0, 655399, 5, 0, 655400, 5, 0, 655401, 5, 0, 655402, 5, 0, 655403, 3, 0, 655404, 3, 0, 655405, 3, 0, 655406, 3, 0, 655407, 3, 0, 655408, 3, 0, 655409, 3, 0, 655410, 3, 0, 655411, 3, 0, 655412, 3, 0, 655413, 5, 0, 655414, 5, 0, 655415, 5, 0, 655416, 3, 0, 655417, 3, 0, 655418, 3, 0, 655419, 3, 0, 655420, 3, 0, 655421, 3, 0, 655422, 3, 0, 655423, 3, 0, 786431, 3, 0, 720896, 3, 0, 720897, 3, 0, 720898, 3, 0, 720899, 3, 0, 720900, 3, 0, 720901, 3, 0, 720902, 3, 0, 720903, 3, 0, 720904, 3, 0, 720905, 3, 0, 720906, 3, 0, 720907, 3, 0, 720908, 3, 0, 720909, 3, 0, 720910, 3, 0, 720911, 5, 0, 720912, 5, 0, 720913, 5, 0, 720914, 5, 0, 720915, 3, 0, 720916, 3, 0, 720917, 3, 0, 720918, 3, 0, 720919, 3, 0, 720920, 3, 0, 720921, 3, 0, 720922, 3, 0, 720923, 3, 0, 720924, 3, 0, 720925, 3, 0, 720926, 3, 0, 720927, 3, 0, 720928, 3, 0, 720929, 3, 0, 720930, 3, 0, 720931, 3, 0, 720932, 3, 0, 720933, 3, 0, 720934, 3, 0, 720935, 5, 0, 720936, 5, 0, 720937, 5, 0, 720938, 5, 0, 720939, 3, 0, 720940, 3, 0, 720941, 3, 0, 720942, 3, 0, 720943, 3, 0, 720944, 3, 0, 720945, 3, 0, 720946, 3, 0, 720947, 3, 0, 720948, 3, 0, 720949, 5, 0, 720950, 5, 0, 720951, 5, 0, 720952, 3, 0, 720953, 3, 0, 720954, 3, 0, 720955, 3, 0, 720956, 3, 0, 720957, 3, 0, 720958, 3, 0, 720959, 3, 0 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+editor/display_folded = true
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+editor/display_folded = true
+motion_scale = Vector2( 0.5, 1 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 159.943, 92.2746 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 10 )
+
+[node name="Sprite5" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 1183.17, 90.224 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 10 )
+
+[node name="Sprite4" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 971.959, 210.181 )
+scale = Vector2( 1.08348, 1.12455 )
+texture = ExtResource( 10 )
+
+[node name="Sprite2" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 457.272, 151.74 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 11 )
+
+[node name="Sprite3" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 732.045, 75.8702 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 12 )
+
+[node name="moedas" type="Node2D" parent="."]
+editor/display_folded = true
+
+[node name="moeda" parent="moedas" instance=ExtResource( 13 )]
+position = Vector2( 2161.64, 182.362 )
+
+[node name="moeda2" parent="moedas" instance=ExtResource( 13 )]
+position = Vector2( 2405.69, 177.147 )
+
+[node name="moeda3" parent="moedas" instance=ExtResource( 13 )]
+position = Vector2( 446.143, 173.422 )
+
+[node name="moeda4" parent="moedas" instance=ExtResource( 13 )]
+position = Vector2( 370.599, 126.111 )
+
+[node name="moeda5" parent="moedas" instance=ExtResource( 13 )]
+position = Vector2( 531.739, 130.624 )
+
+[node name="moeda6" parent="moedas" instance=ExtResource( 13 )]
+position = Vector2( 448.66, 236.36 )
+
+[node name="moeda7" parent="moedas" instance=ExtResource( 13 )]
+position = Vector2( 451.178, 306.851 )
+
+[node name="moeda8" parent="moedas" instance=ExtResource( 13 )]
+position = Vector2( 1445.6, 163.352 )
+
+[node name="moeda9" parent="moedas" instance=ExtResource( 13 )]
+position = Vector2( 1694.84, 168.387 )
+
+[node name="moeda10" parent="moedas" instance=ExtResource( 13 )]
+position = Vector2( 1923.93, 175.94 )
+
+[node name="moeda11" parent="moedas" instance=ExtResource( 13 )]
+position = Vector2( 4378.97, 136.284 )
+
+[node name="moeda12" parent="moedas" instance=ExtResource( 13 )]
+position = Vector2( 3856.24, 496.788 )
+
+[node name="moeda13" parent="moedas" instance=ExtResource( 13 )]
+position = Vector2( 3758.9, 503.998 )
+
+[node name="moeda14" parent="moedas" instance=ExtResource( 13 )]
+position = Vector2( 3553.41, 6.50269 )
+
+[node name="moeda15" parent="moedas" instance=ExtResource( 13 )]
+position = Vector2( 3283.03, 222.805 )
+
+[node name="inimigos" type="Node2D" parent="."]
+
+[node name="lesma" type="Path2D" parent="inimigos"]
+curve = SubResource( 3 )
+
+[node name="follow" type="PathFollow2D" parent="inimigos/lesma"]
+position = Vector2( 330, 460 )
+
+[node name="body" type="KinematicBody2D" parent="inimigos/lesma/follow"]
+script = ExtResource( 14 )
+
+[node name="sprite" type="Sprite" parent="inimigos/lesma/follow/body"]
+position = Vector2( -0.574188, 9.86594 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 15 )
+flip_h = true
+
+[node name="anim" type="AnimationPlayer" parent="inimigos/lesma/follow/body"]
+anims/rasteijar = SubResource( 4 )
+
+[node name="shape" type="CollisionShape2D" parent="inimigos/lesma/follow/body"]
+position = Vector2( -0.133789, 9.03738 )
+shape = SubResource( 5 )

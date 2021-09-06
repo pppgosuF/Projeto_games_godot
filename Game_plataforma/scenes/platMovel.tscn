@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scripts/platMovel.gd" type="Script" id=1]
+[ext_resource path="res://assets/Tiles/grassCliffLeft.png" type="Texture" id=2]
+[ext_resource path="res://assets/Tiles/grassMid.png" type="Texture" id=3]
+[ext_resource path="res://assets/Tiles/grassCliffRight.png" type="Texture" id=4]
+
+[node name="platMovel" type="Path2D"]
+curve = null
+
+[node name="follow" type="PathFollow2D" parent="."]
+position = Vector2( -33.1934, -27.9423 )
+rotate = false
+
+[node name="body" type="KinematicBody2D" parent="follow"]
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="follow/body"]
+texture = ExtResource( 2 )
+
+[node name="Sprite2" type="Sprite" parent="follow/body"]
+position = Vector2( 70, 0 )
+texture = ExtResource( 3 )
+
+[node name="Sprite3" type="Sprite" parent="follow/body"]
+position = Vector2( 140, 0 )
+texture = ExtResource( 4 )
+
+[node name="poly" type="CollisionPolygon2D" parent="follow/body"]
+polygon = PoolVector2Array( -39.0359, -33.6933, 170.964, -33.6933, 175.241, -16.9094, 169.409, 11.0829, 143.75, 25.0792, 106.427, 36.7426, 22.4495, 33.2436, -9.04175, 25.0792, -28.8699, 11.0829, -35.8679, -16.9094 )
+
